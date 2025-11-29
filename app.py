@@ -54,29 +54,29 @@ for row in range(num_rows):
                     st.subheader(f"Day {day + 1}")
 
                     movements = program["weeks"][f"week_{week_index_start + count + 1}"][f"day_{day + 1}"]["movements"]
-                    table = []
-                    for movement in movements:
+
+                    for movement_index, movement in enumerate(movements):
+                        st.markdown(f"**{movement["Name"]}**")
+                        table = []
                         for set_index, set in enumerate(movement["sets"], start=1):
                             table.append({
-                                "Movement": movement["Name"],
                                 "Set": set_index,
                                 "Rep Range": f"{set["Reps_Target"][0]} - {set["Reps_Target"][1]}",
                                 "Weight" : set["Weight"],
                                 "Reps": set["Reps_Completed"]
                             })   
-                    df = pd.DataFrame(table)
-                    num_rows_df = len(df)
-                    row_height = 35  # Approximate height per row in pixels
-                    total_height = row_height * num_rows_df + 40  # Additional space for header
-                    edited_df = st.data_editor(df,
-                                               key=f"week{week_index_start + count + 1}_day{day+1}",
-                                               hide_index=True,
-                                               use_container_width=True,
-                                               height=total_height
-                                               )
-                    for movement in movements:
-                        movement_rows = edited_df[edited_df["Movement"] == movement["Name"]]
-                        for _, row in movement_rows.iterrows():
+                        df = pd.DataFrame(table)
+                        num_rows_df = len(df)
+                        row_height = 35  # Approximate height per row in pixels
+                        total_height = row_height * num_rows_df + 40  # Additional space for header
+                        edited_df = st.data_editor(df,
+                                                key=f"week{week_index_start + count + 1}_day{day+1}_movement{movement_index}",
+                                                hide_index=True,
+                                                use_container_width=True,
+                                                height=total_height
+                                                )
+
+                        for _, row in edited_df.iterrows():
                             set_number = row["Set"]
                             set_index = int(set_number) - 1
                             movement["sets"][set_index]["Reps_Completed"] = row["Reps"]
