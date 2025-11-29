@@ -21,8 +21,8 @@ st.set_page_config(layout="wide")
 st.markdown("""
 <style>
 .stMainBlockContainer {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
