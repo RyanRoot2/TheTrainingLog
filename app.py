@@ -2,6 +2,18 @@ import streamlit as st
 import json
 import pandas as pd
 
+# Get the password from Streamlit Secrets
+PASSWORD = st.secrets["credentials"]["password"]
+# Ask user for password
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+if not st.session_state.authenticated:
+    password_input = st.text_input("Enter password", type="password")
+    if password_input == PASSWORD:
+        st.session_state.authenticated = True
+    else:
+        st.warning("Incorrect password")
+        st.stop()  # Stops execution for wrong password
 
 st.set_page_config(layout="wide")
 
