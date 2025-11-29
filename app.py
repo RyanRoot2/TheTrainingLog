@@ -11,6 +11,7 @@ if not st.session_state.authenticated:
     password_input = st.text_input("Enter password", type="password")
     if password_input == PASSWORD:
         st.session_state.authenticated = True
+        st.rerun()
     else:
         st.warning("Incorrect password")
         st.stop()  # Stops execution for wrong password
