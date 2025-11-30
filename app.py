@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import pandas as pd
+from google.cloud import firestore
 
 # Get the password from Streamlit Secrets
 PASSWORD = st.secrets["credentials"]["password"]
@@ -15,6 +16,49 @@ if not st.session_state.authenticated:
     else:
         st.warning("Incorrect password")
         st.stop()  # Stops execution for wrong password
+
+
+# --- CONFIGURATION (MUST MATCH YOUR SETUP) ---
+CUSTOM_DB_NAME = 'training-log' 
+COLLECTION_NAME = 'activePrograms'
+DOCUMENT_ID = 'workout_v1_0'
+# ---------------------------------------------
+# 1. Initialize the Secure Connection Client
+@st.cache_resource
+def get_firestore_client():
+    # Pass the database name explicitly for custom-named databases
+    return firestore.Client.from_service_account_info(
+        st.secrets["firestore"],
+        database=CUSTOM_DB_NAME
+    )
+
+db = get_firestore_client()
+
+# 2. Load the JSON Data into a Dictionary
+# Caching is crucial here: prevents a database read on every app interaction
+@st.cache_data(ttl=3600) # Re-read data from Firestore only once every hour
+def load_workout_json():
+    try:
+        doc_ref = db.collection(COLLECTION_NAME).document(DOCUMENT_ID)
+        doc = doc_ref.get()
+        
+        if doc.exists:
+            return doc.to_dict()
+        else:
+            st.error(f"Error: Document {DOCUMENT_ID} not found in Firestore.")
+            return None
+    except Exception as e:
+        st.error(f"Failed to load data from Firestore: {e}")
+        return None
+
+program = load_workout_json() 
+
+if program is None:
+    st.stop() # Stop execution if data couldn't be loaded
+
+
+
+
 
 st.set_page_config(layout="wide")
 
@@ -33,8 +77,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-with open('programs/mass_impact.json') as f:
-    program = json.load(f)
+
 
 weeks = list(program["weeks"].keys())  # ["week_1", "week_2", ...]
 num_weeks = len(weeks)
@@ -81,8 +124,8 @@ for row in range(num_rows):
                             set_index = int(set_number) - 1
                             movement["sets"][set_index]["Reps_Completed"] = row["Reps"]
                             movement["sets"][set_index]["Weight"] = row["Weight"]
-                        with open("programs/mass_impact.json", "w") as f:
-                            json.dump(program, f, indent=4)
+                        doc_ref = db.collection(COLLECTION_NAME).document(DOCUMENT_ID)
+                        doc_ref.set(program)
             count += 1
 
 
