@@ -1,0 +1,29 @@
+my_workout_app/
+├── .streamlit/
+│   ├── config.toml       # UI settings (hide sidebar, etc.)
+│   └── secrets.toml      # Firestore keys & User Auth
+├── pages/
+│   ├── 01_📱_Mobile_Workout.py   # The MVP Mobile View
+│   ├── 02_💻_Desktop_Editor.py   # The MVP Desktop View
+│   ├── 03_📊_Progress.py         # (Future) Stats & History
+│   └── 04_⚙️_Settings.py         # (Future) Program Selection/Creation
+├── src/
+│   ├── __init__.py
+│   ├── backend/
+│   │   ├── __init__.py
+│   │   ├── firestore.py      # DB Connection, Read, Write wrappers
+│   │   └── auth.py           # (Future) Auth logic / User profile fetching
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── transformers.py   # JSON <-> DataFrame conversion logic
+│   │   ├── state.py          # Session State initialization & management
+│   │   └── program_mgr.py    # (Future) Template copying, History archiving
+│   ├── ui/
+│   │   ├── __init__.py
+│   │   ├── navigation.py     # The Week/Day grid logic (for Mobile)
+│   │   └── styles.py         # CSS, conditional formatting (Green boxes)
+│   └── utils/
+│       ├── __init__.py
+│       └── device.py         # Mobile/Desktop checker
+├── app.py                    # Entrypoint / Landing Page
+└── requirements.txt
