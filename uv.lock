@@ -882,18 +882,32 @@ wheels = [
 ]
 
 [[package]]
+name = "streamlit-browser-engine"
+version = "0.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "streamlit" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/84/a5/7ca182aa183ade942f607b88958e0c5c29fac579ff7ff48517d6a9d9d974/streamlit_browser_engine-0.0.3.tar.gz", hash = "sha256:fa0068dbda8d6cd0388517bdada18cce4107a9549517a12e25a44777244c7b46", size = 497945, upload-time = "2025-01-09T21:20:24.695Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/10/be/b67fdfdac083e14314ae196cff78db3563bf570bec6face9dade859294a3/streamlit_browser_engine-0.0.3-py3-none-any.whl", hash = "sha256:7dbd37d3cb5f6e61e567562e55e24651bc80ca5d1d12a289e32597b067b88f47", size = 502960, upload-time = "2025-01-09T21:20:22.122Z" },
+]
+
+[[package]]
 name = "streamlittrainingapp"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "google-cloud-firestore" },
     { name = "streamlit" },
+    { name = "streamlit-browser-engine" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "google-cloud-firestore", specifier = ">=2.21.0" },
     { name = "streamlit", specifier = ">=1.51.0" },
+    { name = "streamlit-browser-engine", specifier = ">=0.0.3" },
 ]
 
 [[package]]
