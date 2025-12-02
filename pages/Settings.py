@@ -1,0 +1,3 @@
+from utils.streamlit_temp_auth import check_st_authentication
+
+check_st_authentication()

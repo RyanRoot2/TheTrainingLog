@@ -1,72 +1,26 @@
 import streamlit as st
-import json
-import pandas as pd
-from google.cloud import firestore
+from src.utils.streamlit_temp_auth import check_st_authentication
+from src.core.state import initialise_state
 
-# Get the password from Streamlit Secrets
-PASSWORD = st.secrets["credentials"]["password"]
-# Ask user for password
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
-if not st.session_state.authenticated:
-    password_input = st.text_input("Enter password", type="password")
-    if password_input == PASSWORD:
-        st.session_state.authenticated = True
-        st.rerun()
-    else:
-        st.warning("Incorrect password")
-        st.stop()  # Stops execution for wrong password
+
+check_st_authentication()
+initialise_state()
+st.write(st.session_state)
+
+st.button("Go to next workout... TBC")
 
 
 
-
-import streamlit as st
-from browser_detection import browser_detection_engine
-
-value = browser_detection_engine()
-st.header(value)
-
-sidebar = st.sidebar
-st.sidebar.title("Workout Program Tracker")
-st.sidebar.markdown("Track and update your workout program.")
-with st.sidebar:
-    st.button("Example Button")
+"""
 
 
 
-# --- CONFIGURATION (MUST MATCH YOUR SETUP) ---
-CUSTOM_DB_NAME = 'training-log' 
-COLLECTION_NAME = 'activePrograms'
-DOCUMENT_ID = 'workout_v1_0'
-# ---------------------------------------------
-# 1. Initialize the Secure Connection Client
-@st.cache_resource
-def get_firestore_client():
-    # Pass the database name explicitly for custom-named databases
-    return firestore.Client.from_service_account_info(
-        st.secrets["firestore"],
-        database=CUSTOM_DB_NAME
-    )
+# def get_firestore_client():
 
 db = get_firestore_client()
 
-# 2. Load the JSON Data into a Dictionary
-# Caching is crucial here: prevents a database read on every app interaction
-@st.cache_data(ttl=3600) # Re-read data from Firestore only once every hour
-def load_workout_json():
-    try:
-        doc_ref = db.collection(COLLECTION_NAME).document(DOCUMENT_ID)
-        doc = doc_ref.get()
-        
-        if doc.exists:
-            return doc.to_dict()
-        else:
-            st.error(f"Error: Document {DOCUMENT_ID} not found in Firestore.")
-            return None
-    except Exception as e:
-        st.error(f"Failed to load data from Firestore: {e}")
-        return None
-
+ # Re-read data from Firestore only once every hour
+# def load_workout_json():
 program = load_workout_json() 
 
 if program is None:
@@ -74,142 +28,16 @@ if program is None:
 
 
 
-
-
-st.set_page_config(layout="wide")
-
-st.markdown("""
-<style>
-.stMainBlockContainer {
-    padding-left: 0rem;
-    padding-right: 0rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}
-.stAppHeader {
-    background-color: rgba(255, 255, 255, 0.0);
-    visibility: visible;
-}
-</style>
-""", unsafe_allow_html=True)
+# styling moved to styles.py
 
 
 
-weeks = list(program["weeks"].keys())  # ["week_1", "week_2", ...]
-num_weeks = len(weeks)
-num_rows = (num_weeks + 3) // 4  # Calculate number of rows needed for 4 columns
-days = 5
+"""
 
 
 
-grid_cols = 3
 
-#--- Setting up buttons in grid layout with state tracking ---
-if 'current_screen' not in st.session_state:
-    st.session_state.current_screen = 'week_select'
-if 'selected_week' not in st.session_state:
-    st.session_state.selected_week = None
-if 'selected_day' not in st.session_state:
-    st.session_state.selected_day = None
 
-#--- Functions to navigate between screens ---
-def nav_to(screen):
-    st.session_state.current_screen = screen
-    st.rerun()
-
-def reset_to_home():
-    st.session_state.selected_week = None
-    st.session_state.selected_day = None
-    nav_to('week_select')
-    st.rerun()
-
-weeks = range(1,13)  # Example: Weeks 1 to 12
-grid = st.columns(grid_cols)
-for idx, week_num in enumerate(weeks):
-    col = grid[idx % grid_cols] # 3 cols
-    with col:
-        if st.button(f"Week {week_num}", key=f"week_{week_num}", use_container_width=True):
-            st.session_state.selected_week = week_num
-            nav_to('day_select')
-
-# Handle selected week's screen, days selection
-st.subheader(f"Selected Week: {st.session_state.selected_week}")
-days_grid = range(1,6)  # Example: Days 1 to 5
-for day_num in days_grid:
-    if st.button(f"Day {day_num}", key=f"day_{day_num}", use_container_width=True):
-        st.session_state.selected_day = day_num
-        nav_to('day_view')
-
-# Handle selected day's screen, display movements and sets
-st.subheader(f"Selected Day: {st.session_state.selected_day}")
-week_key = f"week_{st.session_state.selected_week}"
-day_key = f"day_{st.session_state.selected_day}"
-if 'selected_week' in st.session_state and 'selected_day' in st.session_state:
-    movements = program["weeks"][week_key][day_key]["movements"]
-    for movement_index, movement in enumerate(movements):
-        st.markdown(f"**{movement['Name']}**")
-        table = []
-        for set_index, set in enumerate(movement["sets"], start=1):
-            table.append({
-                "Set": set_index,
-                "Rep Range": f"{set['Reps_Target'][0]} - {set['Reps_Target'][1]}",
-                "Weight" : set["Weight"],
-                "Reps": set["Reps_Completed"]
-            })   
-        df = pd.DataFrame(table)
-        num_rows_df = len(df)
-        row_height = 35  # Approximate height per row in pixels
-        total_height = row_height * num_rows_df + 40  # Additional space for header
-        edited_df = st.data_editor(df,
-                                key=f"week{st.session_state.selected_week}_day{st.session_state.selected_day}_movement{movement_index}",
-                                hide_index=True,
-                                use_container_width=True,
-                                height=total_height
-                                )
-
-for row in range(num_rows):
-    expander = st.expander(f"Phase {row+1}", expanded=False, icon=None, width="stretch")
-    with expander:
-        cols = st.columns(4)
-        week_index_start = row * 4
-        count = 0
-        for col in cols:
-            with col:
-                st.header(f"Week {week_index_start + count + 1}")
-                for day in range(days):
-                    st.subheader(f"Day {day + 1}")
-
-                    movements = program["weeks"][f"week_{week_index_start + count + 1}"][f"day_{day + 1}"]["movements"]
-
-                    for movement_index, movement in enumerate(movements):
-                        st.markdown(f"**{movement["Name"]}**")
-                        table = []
-                        for set_index, set in enumerate(movement["sets"], start=1):
-                            table.append({
-                                "Set": set_index,
-                                "Rep Range": f"{set["Reps_Target"][0]} - {set["Reps_Target"][1]}",
-                                "Weight" : set["Weight"],
-                                "Reps": set["Reps_Completed"]
-                            })   
-                        df = pd.DataFrame(table)
-                        num_rows_df = len(df)
-                        row_height = 35  # Approximate height per row in pixels
-                        total_height = row_height * num_rows_df + 40  # Additional space for header
-                        edited_df = st.data_editor(df,
-                                                key=f"week{week_index_start + count + 1}_day{day+1}_movement{movement_index}",
-                                                hide_index=True,
-                                                use_container_width=True,
-                                                height=total_height
-                                                )
-
-                        for _, row in edited_df.iterrows():
-                            set_number = row["Set"]
-                            set_index = int(set_number) - 1
-                            movement["sets"][set_index]["Reps_Completed"] = row["Reps"]
-                            movement["sets"][set_index]["Weight"] = row["Weight"]
-                        doc_ref = db.collection(COLLECTION_NAME).document(DOCUMENT_ID)
-                        doc_ref.set(program)
-            count += 1
 
 
 
