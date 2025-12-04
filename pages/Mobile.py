@@ -16,6 +16,9 @@ if 'selected_week' and 'selected_day' in st.session_state:
     st.session_state.current_screen = 'day_view'
 
 
+st.write(st.session_state.current_screen)
+
+
 if st.session_state.current_screen == 'week_select':
     render_grid("Week", program["weeks"], 3, 'day_select') 
 elif st.session_state.current_screen == 'day_select':
