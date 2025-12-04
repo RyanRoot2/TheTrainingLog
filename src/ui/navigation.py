@@ -1,4 +1,5 @@
 import streamlit as st
+from src.core.data_type_transform import flatten_day_to_dataframe
 #--- Functions to navigate between screens ---
 def nav_to(screen):
     st.session_state.current_screen = screen
@@ -10,33 +11,24 @@ def reset_to_home():
     nav_to('week_select')
     st.rerun()
 
-def render_week_grid_mobile(program: dict, number_of_columns: int = 3):
-    weeks_keys = list(program["weeks"].keys())
-    num_weeks = len(weeks_keys)
-    weeks = range(1,num_weeks + 1)  # Example: Weeks 1 to 12
+def render_grid(item_name: str, dict: dict, number_of_columns: int, screen_to_nav_to: str):
+    keys = list(dict.keys())
+    num_items = len(keys)
+    items = range(1,num_items + 1)  # Example: Weeks 1 to 12, Days 1 to 5
     cols = st.columns(number_of_columns)
-    for idx, week_num in enumerate(weeks):
-        col = cols[idx % number_of_columns] # 3 cols
+    for idx, item_num in enumerate(items):
+        col = cols[idx % number_of_columns]
         with col:
-            if st.button(f"Week {week_num}", key=f"week_{week_num}_button", use_container_width=True):
-                st.session_state.selected_week = week_num
-                nav_to('day_select')
-                
-def render_day_grid_mobile(program_week: dict, number_of_columns: int = 1):
-    days_keys = list(program_week.keys())
-    days = range(1, len(days_keys) + 1)  # Example:
-    cols = st.columns(number_of_columns)
-    for idx, day_num in enumerate(days):
-        col = cols[idx % number_of_columns] # 1 col
-        with col:
-            if st.button(f"Day {day_num}", key=f"day_{day_num}_button", use_container_width=True):
-                st.session_state.selected_day = day_num
-                nav_to('day_view')
+            if st.button(f"{item_name} {item_num}", key=f"{item_name.lower()}_{item_num}_button", use_container_width=True):
+                if item_name == "Week":
+                    st.session_state.selected_week = item_num
+                elif item_name == "Day":
+                    st.session_state.selected_day = item_num
+                nav_to(screen_to_nav_to)
 
-
-
-def render_grid(dict: dict, number_of_columns: int, nav_to: str):
-    pass
+def render_movements_and_sets(day_data: dict, key_label: str):
+    st.data_editor(flatten_day_to_dataframe(day_data),
+                   key=key_label, hide_index=True, use_container_width=True)
 
 
 
