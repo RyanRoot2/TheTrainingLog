@@ -25,7 +25,7 @@ st.write(st.session_state.current_screen)
 
 
 if st.session_state.current_screen == 'week_select':
-    render_grid("Week", program["weeks"], 3, 'day_select')
+    render_grid("Week", program["weeks"], number_of_columns=1, screen_to_nav_to='day_select')
 
 elif st.session_state.current_screen == 'day_select':
     selected_week_num = st.session_state.selected_week

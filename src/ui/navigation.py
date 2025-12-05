@@ -1,5 +1,5 @@
 import streamlit as st
-from src.core.data_type_transform import flatten_day_to_dataframe
+from src.core.data_transform import flatten_day_to_dataframe
 #--- Functions to navigate between screens ---
 def nav_to(screen):
     st.session_state.current_screen = screen
