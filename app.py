@@ -7,7 +7,7 @@ check_st_authentication()
 initialise_state()
 st.write(st.session_state)
 
-st.button("Go to next workout... TBC")
+st.button("Go to next workout... TBC.")
 
 
 
