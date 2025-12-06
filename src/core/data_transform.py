@@ -16,3 +16,28 @@ def flatten_day_to_dataframe(day_data: Dict[str, Any]) -> pd.DataFrame:
             }
             all_sets.append(row)
     return pd.DataFrame(all_sets)
+
+
+def update_program_json(program: dict, edited_df: pd.DataFrame, week_num: int, day_num: int):
+    week_key = f"week_{week_num}"
+    day_key = f"day_{day_num}"
+
+    try:
+        movements = program["weeks"][week_key][day_key]["movements"]
+    except KeyError as e:
+        print(f"Error accessing movements in JSON structure: {e}")
+        return
+
+    df_index = 0
+
+    for movement in movements:
+        for set_number, set_data in enumerate(movement["sets"]):
+            if df_index < len(edited_df):
+                row = edited_df.iloc[df_index]
+                movement["sets"][set_number]['Reps_Completed'] = int(row.get('Reps', set_data['Reps_Completed']))
+                movement["sets"][set_number]['Weight'] = float(row.get('Weight', set_data['Weight']))
+
+                df_index += 1
+            else:
+                print("Warning: Edited DataFrame ran out of rows. JSON is expecting more input")
+                break

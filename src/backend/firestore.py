@@ -33,4 +33,11 @@ def load_workout_json():
         st.error(f"Failed to load data from Firestore: {e}")
         return None
 
-program = load_workout_json() 
+program = load_workout_json()
+
+CUSTOM_DB_NAME = 'training-log' 
+COLLECTION_NAME = 'activePrograms'
+DOCUMENT_ID = 'workout_v1_0'
+def upload_program_json(program: dict):
+    doc_ref = db.collection(COLLECTION_NAME).document(DOCUMENT_ID)
+    doc_ref.set(program)

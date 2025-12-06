@@ -8,14 +8,3 @@ from src.ui.navigation import render_current_screen
 check_st_authentication()
 set_current_screen()
 render_current_screen()
-
-
-
-
-
-
-
-st.write(st.session_state.current_screen)
-
-
-st.write(st.session_state)
