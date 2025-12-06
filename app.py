@@ -11,30 +11,6 @@ st.button("Go to next workout... TBC")
 
 
 
-"""
-
-
-
-# def get_firestore_client():
-
-db = get_firestore_client()
-
- # Re-read data from Firestore only once every hour
-# def load_workout_json():
-program = load_workout_json() 
-
-if program is None:
-    st.stop() # Stop execution if data couldn't be loaded
-
-
-
-# styling moved to styles.py
-
-
-
-"""
-
-
 
 
 
