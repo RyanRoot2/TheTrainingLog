@@ -1,29 +1,60 @@
 import streamlit as st
-from src.utils.streamlit_temp_auth import check_st_authentication
+from src.backend.firebase_init import initialise_firebase_admin
 from src.core.state import initialise_state
+from src.core.login import enforce_login
+
+initialise_firebase_admin()
+enforce_login()
+initialise_state()
 
 
-def show_login_button():
-    # If the user is NOT logged in (st.user is not authenticated)
-    if not st.user.is_logged_in:
-        st.title("Secure App Demo")
-        st.info("👋 Please log in to continue.")
-        
-        # Display the login button, which triggers the OIDC flow
-        if st.button("Log in with Google"):
-            st.login() 
-        
-        # Prevent the rest of the application from running
-        st.stop()
-show_login_button()
 
+st.success(f"Welcome")
+st.info("👋 Under Construction!")
+
+
+# =======
+# Current Program / Program Selection flow example
+# =======
+if 'current_program' not in st.session_state:
+    st.session_state.current_program = 'None'
+
+@st.dialog("Choose Program")
+def choose_program():
+    selected_program = st.selectbox('Label', ["5/3/1", "Upper Lower Arms 5x", "PPL 6x"])
+    if st.button("Save"):
+        st.session_state.current_program = selected_program
+        st.rerun()
+if st.button(f"Current Program: {st.session_state.current_program}"):
+    choose_program()
+
+
+
+# =======
+# Program Templates / User's available programs
+# =======
+option_dict = {
+    "5/3/1": "Jim Wenderl's 5/3/1 with First Set Last",
+    "Upper Lower Arms & Shoulders 5x": "Upper Lower, Upper Lower, and a dedicated day for Arms and Shoulders",
+    "PPL 6x": "Classic Push Pull Legs 6 days per week"
+}
+with st.expander(label='Program Templates'):
+    with st.expander(label='Filters'):
+        filters = ['3x', '4x', '5x', '6x', 'My Templates Only', 'Strength', 'Hypertrophy',
+                   'Weekly Periodisation', 'Block Periodisation', 'Linear Progression']
+        for filter in filters:
+            st.checkbox(filter)
+    option = st.selectbox(label="Programs", options=("5/3/1", "Upper Lower Arms & Shoulders 5x", "PPL 6x"))
+    st.write(f"{option_dict[option]}")
+
+
+# =======
+# Logout
+# =======
 if st.button("Log out"):
     st.logout()
-st.write(f"Hello, {st.user.name}!")
 
-initialise_state()
-st.info("👋 Hello!")
-st.button("Go to next workout... TBC")
+
 
 
 
