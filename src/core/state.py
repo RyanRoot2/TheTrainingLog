@@ -30,6 +30,10 @@ def initialise_state():
     if 'authenticated' not in st.session_state:
         st.session_state.authenticated = False
 
+    # Used for navigating the desktop builder screens
+    if 'desktop_builder_step2' not in st.session_state:
+        st.session_state.desktop_builder_step2 = None
+
 
 def nav_to(screen):
     st.session_state.current_screen = screen
