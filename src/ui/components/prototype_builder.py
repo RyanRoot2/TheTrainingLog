@@ -40,7 +40,7 @@ def render_day_column(i):
         }
     )
 
-    st.session_state[f'day_table_{i}'] = edited_df
+    st.session_state[f'program_builder_desktop_movement_selection_data_editor_{i}'] = edited_df
 
     st.write(st.session_state)
 

@@ -1,6 +1,6 @@
 import streamlit as st
 
-def get_program_dimensions():
+def render_desktop_dimensions_form():
     with st.form("program_structure_form", clear_on_submit=False):
         col1, col2 = st.columns(2)
 
@@ -12,6 +12,7 @@ def get_program_dimensions():
         submitted = st.form_submit_button("Go to next step")
 
         if submitted:
-            st.session_state['builder_num_weeks'] = num_weeks
-            st.session_state['builder_num_days'] = num_days
-            st.rerun()
+            st.session_state.program_builder_desktop_num_weeks = num_weeks
+            st.session_state.program_builder_desktop_num_days = num_days
+            st.session_state.desktop_program_builder_screen = 'movement_selection'
+            st.rerun() # Change to a callback
