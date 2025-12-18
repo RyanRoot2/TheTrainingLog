@@ -2,6 +2,11 @@ import streamlit as st
 from src.ui.screens.program_builder.desktop_dimensions_form import render_desktop_dimensions_form
 from src.ui.screens.program_builder.desktop_movement_selection import render_desktop_movement_selection
 from src.ui.screens.program_builder.desktop_progressions import render_desktop_progressions
+from src.ui.screens.program_builder.state import (
+    init_desktop_dimensions_form_state,
+    init_desktop_movement_selection_state,
+    init_desktop_progressions_state
+)
 
 
 def render_program_builder_tabs():
@@ -13,11 +18,15 @@ def render_program_builder_tabs():
     with mobile:
         st.subheader('Mobile')
     with desktop:
-        if st.session_state.desktop_program_builder_screen == 'dimensions_form':
+        if st.session_state.program_builder_desktop_screen == 'dimensions_form':
+            init_desktop_dimensions_form_state()
             render_desktop_dimensions_form()
-        elif st.session_state.desktop_program_builder_screen == 'movement_selection':
-            render_desktop_movement_selection()
-        elif st.session_state.desktop_program_builder_screen == 'progressions':
+        elif st.session_state.program_builder_desktop_screen == 'movement_selection':
+            num_days = st.session_state.program_builder_desktop_num_days
+            init_desktop_movement_selection_state(num_days)
+            render_desktop_movement_selection(num_days)
+        elif st.session_state.program_builder_desktop_screen == 'progressions':
+            init_desktop_progressions_state()
             render_desktop_progressions()
     with settings:
         st.subheader('Settings')

@@ -8,7 +8,7 @@ from src.utils.device_detection import DEVICE_INFO
 initialise_firebase_admin()
 enforce_login()
 initialise_state()
-
+st.write(st.session_state)
 st.write(DEVICE_INFO)
 
 st.success(f"Welcome")

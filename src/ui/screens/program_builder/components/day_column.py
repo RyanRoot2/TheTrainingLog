@@ -27,7 +27,7 @@ def render_day_column(i):
     edited_df = st.data_editor(
         df,
         hide_index=True,
-        key=f'data_editor_day_{i}',
+        key=f'st_data_editor_day_{i}',
         num_rows='dynamic',
         column_config={
             "Movement": st.column_config.TextColumn(
@@ -40,9 +40,7 @@ def render_day_column(i):
         }
     )
 
-    st.session_state[f'program_builder_desktop_movement_selection_data_editor_{i}'] = edited_df
+    st.session_state[f'program_builder_desktop_movement_selection_data_{i}'] = edited_df
 
-    st.write(st.session_state)
-
-    st.write(df)
+    #st.write(st.session_state)
 

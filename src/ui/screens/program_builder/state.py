@@ -22,9 +22,9 @@ def init_desktop_dimensions_form_state():
     """
     # Initialises the program builder dimensions
     if 'program_builder_desktop_num_weeks' not in st.session_state:
-        st.session_state['builder_num_weeks'] = None
+        st.session_state['program_builder_desktop_num_weeks'] = None
     if 'program_builder_desktop_num_days' not in st.session_state:
-        st.session_state['builder_num_days'] = None
+        st.session_state['program_builder_desktop_num_weeks'] = None
 
 def init_desktop_movement_selection_state(num_days):
     """
@@ -43,12 +43,15 @@ def init_desktop_movement_selection_state(num_days):
     base_df = pd.DataFrame(data, columns=column_titles)
     
     # Explicitly ensure dtypes for robustness, though numpy with '' should handle it
-    #base_df = base_df.astype({'Movement': 'object', 'Options': 'object'})
+    base_df = base_df.astype({'Movement': 'object', 'Options': 'object'})
 
     for i in range(num_days):
-        if f'add_movement_day_{i}_state' not in st.session_state:
-            st.session_state[f'add_movement_day_{i}_state'] = False
-        if f'day_table_{i}' not in st.session_state:
-            st.session_state[f'program_builder_desktop_movement_selection_data_editor_{i}'] = base_df.copy()
+        if f'program_builder_desktop_movement_selection_data_{i}' not in st.session_state:
+            st.session_state[f'program_builder_desktop_movement_selection_data_{i}'] = base_df.copy()
 
+    # This will hold the program data between screens (Movements, sets, reps, etc)
+    if 'program_builder_data' not in st.session_state:
+        st.session_state.program_builder_data = None
 
+def init_desktop_progressions_state():
+    pass

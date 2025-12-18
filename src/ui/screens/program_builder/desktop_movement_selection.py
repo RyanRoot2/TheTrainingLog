@@ -1,18 +1,23 @@
 import streamlit as st
-from src.ui.screens.program_builder.state import init_desktop_movement_selection_state
-from src.utils.append_desktop_builder_step1_edited_dfs import append_desktop_builder_step1_edited_dfs
+import pandas as pd
+
 
 # from src.ui.components.desktop_program_builder_column import render_day_column
-from src.ui.components.prototype_builder import render_day_column
+from src.ui.screens.program_builder.components.day_column import render_day_column
 
-def render_desktop_movement_selectio():
+
+def append_desktop_builder_movement_selection():
     num_days = st.session_state.program_builder_desktop_num_days
+    dfs = []
+    for i in range(num_days):
+       dfs.append(st.session_state[f'program_builder_desktop_movement_selection_data_{i}'])
 
-    # Initialise necessary state variables using dimensions
-    init_desktop_movement_selection_state(num_days)
-    # st.write(st.session_state)
+    df = pd.concat(dfs, ignore_index=True)
+    #df = df.dropna()
+    return df
 
-    # Create column structure for each day
+
+def render_desktop_movement_selection(num_days):
     days = st.columns(num_days)
 
     # Render each column
@@ -20,11 +25,10 @@ def render_desktop_movement_selectio():
         with col:
             render_day_column(i)
 
-    if st.button("Step 2"):
-        program_builder_data_step1 = append_desktop_builder_step1_edited_dfs()
-        if program_builder_data_step1 not in st.session_state:
-            st.session_state.program_builder_data_step1 = program_builder_data_step1
-        st.session_state.desktop_builder_step2 = True
+    if st.button("Configure Sets, Reps, and Progressions -->"):
+        program_builder_data = append_desktop_builder_movement_selection()
+        st.session_state.program_builder_data = program_builder_data
+        st.session_state.program_builder_desktop_screen = 'progressions'
         st.rerun()
         
 
