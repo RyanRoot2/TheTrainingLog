@@ -10,7 +10,10 @@ def append_desktop_builder_movement_selection():
     num_days = st.session_state.program_builder_desktop_num_days
     dfs = []
     for i in range(num_days):
-       dfs.append(st.session_state[f'program_builder_desktop_movement_selection_data_{i}'])
+       df = st.session_state[f'program_builder_desktop_movement_selection_data_{i}']
+       df = df[df['Movement'].str.strip().ne("")]
+       df['day'] = i
+       dfs.append(df)
 
     df = pd.concat(dfs, ignore_index=True)
     #df = df.dropna()
