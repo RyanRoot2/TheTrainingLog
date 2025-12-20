@@ -13,8 +13,19 @@ def init_program_builder_state():
         st.session_state.program_builder_mobile_screen = None
 
 def clear_program_builder_state():
-    # for X in session state starts with program_builder_ set value to None
-    pass
+    """
+    Resets all keys related to the program builder
+    """
+    # 1. Identify all keys to remove
+    # We look for the main builder keys and your progression data keys
+    keys_to_delete = [
+        key for key in st.session_state 
+        if key.startswith('program_builder_')
+    ]
+
+    # 2. Delete them from session state
+    for key in keys_to_delete:
+        del st.session_state[key]
 
 def init_desktop_dimensions_form_state():
     """

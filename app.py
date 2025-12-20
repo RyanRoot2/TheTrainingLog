@@ -11,6 +11,12 @@ initialise_state()
 st.write(st.session_state)
 st.write(DEVICE_INFO)
 
+if DEVICE_INFO['isDesktop'] is True:
+    st.write("Use to update settings.")
+
+
+
+
 st.success(f"Welcome")
 st.info("👋 Under Construction!")
 
@@ -23,16 +29,3 @@ render_main_dashboard_tabs()
 st.write("------------------")
 if st.button("Log out"):
     st.logout()
-
-
-
-
-
-
-
-
-
-
-
-
-
