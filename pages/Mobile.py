@@ -26,7 +26,5 @@ if st.session_state.program_json is None:
     st.session_state.program_json = program_json
 # Will investigate loading the program elsewhere with a cache, and then setting weeks and days in the init function
 
-st.write(program_json)
-
 # Render the current screen based on session state - chosen weeks and days
 render_current_screen()

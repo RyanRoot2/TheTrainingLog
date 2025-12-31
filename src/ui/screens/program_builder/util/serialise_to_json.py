@@ -50,14 +50,26 @@ def serialise_to_json():
                 movement_name = row.get('Movement')
                 if not movement_name or movement_name == "":
                     continue
+                
+                # Get number of sets and reps for the movement entry
+                num_sets = row.get(f"W{w} Sets", 0)
+                num_reps = row.get(f"W{w} Reps", 0)
+                assert num_sets is not None, "Sets cannot be None"
+
+                # Generate a list of set dictionaries
+                sets_list = []
+                for s in range(int(1, num_sets+1)):
+                    sets_list.append({
+                        "set_number": s,
+                        "reps": num_reps,
+                        "weight": None,
+                        "completed": False
+                    })
 
                 # Build the movement object
                 movement_entry = {
                     "exercise": movement_name,
-                    "sets": row.get(f"W{w} Sets"),
-                    "reps": row.get(f"W{w} Reps"),
-                    "weight": None,
-                    "reps_completed": None
+                    "sets": sets_list
                 }
 
                 # Dynamically add RPE, % 1RM, etc.
@@ -67,7 +79,9 @@ def serialise_to_json():
                         metric_name = col[len(prefix):]
                         if metric_name not in ["Sets", "Reps"]:
                             clean_key = metric_name.lower().replace(" ", "_")
-                            movement_entry[clean_key] = row[col]
+                            # Add the key to every set
+                            for s in range(len(sets_list)):
+                                sets_list[s][clean_key] = row[col]
 
                 # Append to the pre-existing day list
                 program_json["weeks"][week_key][day_key]["movements"].append(movement_entry)

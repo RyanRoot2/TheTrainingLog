@@ -13,7 +13,7 @@ def render_grid(item_name: str, dict: dict, number_of_columns: int, screen_to_na
         with col:
             if st.button(f"{item_name} {item_num}", key=f"{item_name.lower()}_{item_num}_button", use_container_width=True):
                 if item_name == "Week":
-                    st.session_state.selected_week = item_num
+                    st.session_state.program_viewer_mobile_selected_week = item_num
                 elif item_name == "Day":
-                    st.session_state.selected_day = item_num
+                    st.session_state.program_viewer_mobile_selected_day = item_num
                 nav_to(screen_to_nav_to)
