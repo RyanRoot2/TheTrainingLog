@@ -1,0 +1,19 @@
+import streamlit as st
+from src.ui.screens.program_viewer.mobile_week_select import render_mobile_week_select
+from src.ui.screens.program_viewer.mobile_day_select import render_mobile_day_select
+from src.ui.screens.program_viewer.mobile_day_view import render_mobile_day_view
+
+
+
+# --- Functions to navigate between screens ---
+
+def render_current_screen():
+    if st.session_state.program_viewier_mobile_current_screen == 'week_select':
+        render_mobile_week_select()
+
+    elif st.session_state.program_viewier_mobile_current_screen == 'day_select':
+        render_mobile_day_select()
+        
+    elif st.session_state.program_viewier_mobile_current_screen == 'day_view':
+        render_mobile_day_view()
+

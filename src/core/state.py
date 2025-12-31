@@ -17,29 +17,3 @@ def initialise_state():
 
         
 
-
-
-def nav_to(screen):
-    st.session_state.current_screen = screen
-    st.rerun()
-
-
-def reset_to_home():
-    st.session_state.selected_week = None
-    st.session_state.selected_day = None
-    nav_to('week_select')
-    st.rerun()
-
-
-def set_current_screen():
-    week_selected = st.session_state.get('selected_week')
-    day_selected = st.session_state.get('selected_day')
-
-    if day_selected is not None:
-        st.session_state.current_screen = 'day_view'
-
-    elif week_selected is not None:
-        st.session_state.current_screen = 'day_select'
-
-    else:
-        st.session_state.current_screen = 'week_select'

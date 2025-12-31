@@ -1,5 +1,7 @@
 import streamlit as st
-from src.core.state import nav_to
+from src.ui.screens.program_viewer.state import nav_to
+
+# For locality, it's probably better to move this into the week and day screens and put selected week and selected day into the state init function
 
 def render_grid(item_name: str, dict: dict, number_of_columns: int, screen_to_nav_to: str):
     keys = list(dict.keys())
