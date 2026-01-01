@@ -52,18 +52,24 @@ def serialise_to_json():
                     continue
                 
                 # Get number of sets and reps for the movement entry
-                num_sets = row.get(f"W{w} Sets", 0)
-                num_reps = row.get(f"W{w} Reps", 0)
-                assert num_sets is not None, "Sets cannot be None"
+                num_sets_str = row.get(f"W{w} Sets", 0)
+                num_reps_str = row.get(f"W{w} Reps", 0)
+                try:
+                    num_sets = int(num_sets_str)
+                except TypeError or ValueError:
+                    num_sets = 0
+                try:
+                    num_reps = int(num_reps_str)
+                except TypeError or ValueError:
+                    num_reps = 0
 
                 # Generate a list of set dictionaries
                 sets_list = []
-                for s in range(int(1, num_sets+1)):
+                for s in range(1, num_sets+1):
                     sets_list.append({
                         "set_number": s,
                         "reps": num_reps,
-                        "weight": None,
-                        "completed": False
+                        "weight": ""
                     })
 
                 # Build the movement object

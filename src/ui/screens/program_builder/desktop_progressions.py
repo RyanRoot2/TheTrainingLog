@@ -108,8 +108,10 @@ def render_desktop_progressions():
     for day in sorted(dfs_by_day.keys()):
         render_day_progressions(day, dfs_by_day[day])
 
+    template_name = st.text_input("Template Name", key="program_builder_desktop_template_name", value="Enter Template Name")
+
     if st.button("Save Program -->"):
         json = serialise_to_json()
-        save_program_template_to_firestore(program_data=json, template_name="My First Template")
+        save_program_template_to_firestore(program_data=json, template_name=template_name)
         st.session_state.show_success_dialog = True
         st.rerun()

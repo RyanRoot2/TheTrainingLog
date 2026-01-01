@@ -36,7 +36,7 @@ def get_active_program_id() -> str | None:
     return user_doc.get("active_program_id") # Returns None if no active program is set
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=3600*4)  # Cache for 4 hours
 def load_active_program_json() -> ProgramData | None:
     """Loads the active program JSON for the current user from Firestore."""
     user_uid = st.session_state.get("user_uid")

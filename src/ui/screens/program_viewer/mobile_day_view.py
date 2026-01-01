@@ -14,22 +14,26 @@ def render_mobile_day_view():
     st.header(f"Week {week} - Day {day}")
     # This day's workout data
     program_json = st.session_state.program_json
+    # Workout Data format {"movements": [ {exercise: str, sets: [set num, reps, weight, etc - all str ] }, ... ] }
     workout_data = program_json["program"]["weeks"][f"week_{week}"][f"day_{day}"]
 
     # Expander
     for movement in workout_data["movements"]:
         with st.expander(f"{movement['exercise']}"):
-
-            num_sets = int(movement.get("sets"))
-            
-            df = pd.DataFrame([movement])
-
-            df_repeated = df.loc[df.index.repeat(num_sets)].reset_index(drop=True)
-
-            df_repeated.insert(0, "Set", range(1, num_sets + 1))
-            df_repeated["Set"] = df_repeated["Set"].astype(str)
-            df_repeated = df_repeated.rename(columns={"reps": "Reps", "weight": "Weight"})
-            st.data_editor(df_repeated[["Set", "Reps", "Weight"]], hide_index=True)
+            df = pd.DataFrame(movement["sets"])
+            # Columns to show
+            display_columns = ["set_number", "reps", "weight", "rpe_target", "rir_target", "set_range", "%_1rm"]
+            df_display = df[[col for col in display_columns if col in df.columns]]
+            df_display = df_display.rename(columns={
+                "set_number": "Set",
+                "reps": "Reps",
+                "weight": "Weight",
+                "rpe_target": "RPE Target",
+                "rir_target": "RIR Target",
+                "set_range": "Set Range",
+                "%_1rm": "% 1RM"
+            })
+            st.data_editor(df_display, hide_index=True, use_container_width=True)
 
     # Save Button
     if st.button("Save Workout"):
