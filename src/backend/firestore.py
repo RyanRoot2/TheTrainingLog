@@ -94,3 +94,17 @@ def get_all_user_templates():
     docs = templates_ref.order_by("template_name", direction="DESCENDING").stream()
 
     return [{**doc.to_dict(), "id": doc.id} for doc in docs] # Return list of dicts with template data and document ID as "id", [] if empty
+
+
+def update_program_in_firestore(program_id: str, program_data: ProgramData) -> None:
+    """Updates the program data for a given program ID in Firestore."""
+    user_uid = st.session_state.get("user_uid")
+    assert user_uid is not None, "Attempted to update program without a valid user_uid in session state."
+    db = get_firestore_client()
+
+    program_doc_ref = db.collection(USERS_COLLECTION).document(user_uid)\
+        .collection(USER_STARTED_PROGRAMS_SUBCOLLECTION).document(program_id)
+    
+    program_doc_ref.set(program_data, merge=True)
+
+    load_active_program_json.clear()  # Clear the cache for the active program JSON

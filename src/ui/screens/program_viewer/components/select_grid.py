@@ -11,7 +11,7 @@ def render_grid(item_name: str, dict: dict, number_of_columns: int, screen_to_na
     for idx, item_num in enumerate(items):
         col = cols[idx % number_of_columns]
         with col:
-            if st.button(f"{item_name} {item_num}", key=f"{item_name.lower()}_{item_num}_button", use_container_width=True):
+            if st.button(f"{item_name} {item_num}", key=f"{item_name.lower()}_{item_num}_button", width="stretch"):
                 if item_name == "Week":
                     st.session_state.program_viewer_mobile_selected_week = item_num
                 elif item_name == "Day":

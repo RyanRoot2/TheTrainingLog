@@ -4,6 +4,7 @@ from src.core.state import initialise_state
 from src.ui.screens.program_viewer.state import init_program_viewer_state
 from src.ui.screens.program_viewer.nav import render_current_screen
 from src.backend.firestore import load_active_program_json
+from src.backend.firestore import get_active_program_id
 
 st.set_page_config(layout="wide")
 enforce_login() # Auth check on every page
@@ -17,6 +18,10 @@ if st.session_state.program_viewier_mobile_current_screen is None:
 # Load Program Data JSON
 # Initialize program stats in session state if not already set
 # Required for render functions
+# Active Program ID is used for saving the program later
+active_program_id = get_active_program_id()
+if 'active_program_id' not in st.session_state or st.session_state.active_program_id != active_program_id:
+    st.session_state.active_program_id = active_program_id
 program_json = load_active_program_json()
 if 'active_program_weeks' not in st.session_state or st.session_state.active_program_weeks is None:
     st.session_state.active_program_weeks = program_json["stats"]["weeks"]
