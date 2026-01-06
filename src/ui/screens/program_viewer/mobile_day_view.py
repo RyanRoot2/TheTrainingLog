@@ -8,7 +8,13 @@ def render_mobile_day_view():
     day = st.session_state.program_viewer_mobile_selected_day
     
     st.header(f"Week {week} - Day {day}")
-    
+
+    if st.button("Week Selection"):
+        st.session_state.program_viewer_mobile_selected_week = None
+        st.session_state.program_viewer_mobile_selected_day = None
+        st.session_state.program_viewier_mobile_current_screen = 'week_select'
+        st.rerun()
+
     # Access the master JSON from session state
     program_json = st.session_state.program_json
     

@@ -20,6 +20,10 @@ def init_program_viewer_state():
     if 'program_json' not in st.session_state:
         st.session_state.program_json = None
 
+    # Active Program ID
+    if 'active_program_id' not in st.session_state:
+        st.session_state.active_program_id = None
+
 
 
 

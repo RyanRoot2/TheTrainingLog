@@ -1,0 +1,87 @@
+Date : 2026-01-01 18:01:13
+Directory : c:\Users\ryanp\Documents\Code\StreamlitTrainingApp
+Total : 40 files,  21120 codes, 199 comments, 357 blanks, all 21676 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| JSON     |          2 |     19,018 |          0 |          0 |     19,018 |
+| TOML     |          2 |      1,295 |          0 |         76 |      1,371 |
+| Python   |         34 |        709 |        199 |        244 |      1,152 |
+| Markdown |          2 |         98 |          0 |         37 |        135 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                            | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                               |         40 |     21,120 |        199 |        357 |     21,676 |
+| . (Files)                                                                                                       |          5 |      1,406 |          7 |        124 |      1,537 |
+| pages                                                                                                           |          5 |        112 |         12 |         28 |        152 |
+| programs                                                                                                        |          2 |     19,018 |          0 |          0 |     19,018 |
+| src                                                                                                             |         28 |        584 |        180 |        205 |        969 |
+| src (Files)                                                                                                     |          1 |          0 |          0 |          1 |          1 |
+| src\backend                                                                                                     |          4 |        109 |         23 |         40 |        172 |
+| src\core                                                                                                        |          5 |         98 |         30 |         36 |        164 |
+| src\ui                                                                                                          |         16 |        375 |        127 |        126 |        628 |
+| src\ui (Files)                                                                                                  |          1 |          0 |          0 |          1 |          1 |
+| src\ui\components                                                                                               |          1 |          0 |          0 |          1 |          1 |
+| src\ui\screens                                                                                                  |         14 |        375 |        127 |        124 |        626 |
+| src\ui\screens (Files)                                                                                          |          1 |          0 |          0 |          1 |          1 |
+| src\ui\screens\program_builder                                                                                  |          7 |        263 |         80 |         77 |        420 |
+| src\ui\screens\program_builder (Files)                                                                          |          5 |        170 |         55 |         53 |        278 |
+| src\ui\screens\program_builder\components                                                                       |          1 |         33 |          5 |          9 |         47 |
+| src\ui\screens\program_builder\util                                                                             |          1 |         60 |         20 |         15 |         95 |
+| src\ui\screens\program_viewer                                                                                   |          6 |        112 |         47 |         46 |        205 |
+| src\ui\screens\program_viewer (Files)                                                                           |          5 |         96 |         46 |         44 |        186 |
+| src\ui\screens\program_viewer\components                                                                        |          1 |         16 |          1 |          2 |         19 |
+| src\utils                                                                                                       |          2 |          2 |          0 |          2 |          4 |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                        | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\README.md                                                    | Markdown |          3 |          0 |          0 |          3 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\app.py                                                       | Python   |         13 |          7 |         11 |         31 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\dev.md                                                       | Markdown |         95 |          0 |         37 |        132 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\pages\Desktop.py                                             | Python   |         43 |          0 |          5 |         48 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\pages\Mobile.py                                              | Python   |         24 |          7 |          4 |         35 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\pages\Program Builder.py                                     | Python   |         16 |          2 |          9 |         27 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\pages\Program Library.py                                     | Python   |         27 |          3 |          9 |         39 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\pages\Settings.py                                            | Python   |          2 |          0 |          1 |          3 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\programs\mass_impact.json                                    | JSON     |      9,509 |          0 |          0 |      9,509 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\programs\mass_impact_template.json                           | JSON     |      9,509 |          0 |          0 |      9,509 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\pyproject.toml                                               | TOML     |         12 |          0 |          1 |         13 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\__init__.py                                              | Python   |          0 |          0 |          1 |          1 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\backend\__init__.py                                      | Python   |          0 |          0 |          1 |          1 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\backend\auth_service.py                                  | Python   |         23 |          6 |          4 |         33 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\backend\firebase_init.py                                 | Python   |         19 |          2 |          7 |         28 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\backend\firestore.py                                     | Python   |         67 |         15 |         28 |        110 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\core\__init__.py                                         | Python   |          0 |          0 |          1 |          1 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\core\data_transform.py                                   | Python   |         35 |          1 |          7 |         43 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\core\login.py                                            | Python   |         29 |         17 |         12 |         58 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\core\save_program_to_firestore.py                        | Python   |         26 |         10 |          6 |         42 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\core\state.py                                            | Python   |          8 |          2 |         10 |         20 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\__init__.py                                           | Python   |          0 |          0 |          1 |          1 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\components\__init__.py                                | Python   |          0 |          0 |          1 |          1 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\__init__.py                                   | Python   |          0 |          0 |          1 |          1 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_builder\components\day_column.py      | Python   |         33 |          5 |          9 |         47 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_builder\desktop_dimensions_form.py    | Python   |         14 |          0 |          4 |         18 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_builder\desktop_movement_selection.py | Python   |         23 |          3 |         13 |         39 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_builder\desktop_progressions.py       | Python   |         68 |         30 |         20 |        118 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_builder\nav.py                        | Python   |         30 |          0 |          5 |         35 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_builder\state.py                      | Python   |         35 |         22 |         11 |         68 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_builder\util\serialise_to_json.py     | Python   |         60 |         20 |         15 |         95 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_viewer\components\select_grid.py      | Python   |         16 |          1 |          2 |         19 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_viewer\mobile_day_select.py           | Python   |          7 |          0 |          1 |          8 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_viewer\mobile_day_view.py             | Python   |         53 |         32 |         23 |        108 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_viewer\mobile_week_select.py          | Python   |          5 |          0 |          1 |          6 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_viewer\nav.py                         | Python   |         11 |          1 |          8 |         20 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\ui\screens\program_viewer\state.py                       | Python   |         20 |         13 |         11 |         44 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\utils\__init__.py                                        | Python   |          0 |          0 |          1 |          1 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\src\utils\device_detection.py                                | Python   |          2 |          0 |          1 |          3 |
+| c:\Users\ryanp\Documents\Code\StreamlitTrainingApp\uv.lock                                                      | TOML     |      1,283 |          0 |         75 |      1,358 |
+| Total                                                                                                           |          |     21,120 |        199 |        357 |     21,676 |
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
