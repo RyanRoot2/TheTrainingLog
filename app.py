@@ -7,7 +7,7 @@ from src.core.login import enforce_login
 initialise_firebase_admin()
 enforce_login()
 initialise_state()
-st.write(st.session_state)
+#st.write(st.session_state)
 #st.write(DEVICE_INFO)
 
 #if DEVICE_INFO['isDesktop'] is True:
@@ -17,6 +17,7 @@ st.write(st.session_state)
 
 st.success(f"Welcome")
 st.info("👋 Under Construction!")
+st.info("Use the sidebar to navigate to the Program Builder. On the Progressions page, you can choose optional columns like RPE. Sets, Reps, and Weight will all appear automatically on the final stage.")
 
 
 
