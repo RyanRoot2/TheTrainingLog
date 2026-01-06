@@ -16,7 +16,7 @@ def render_program_builder_tabs():
         "Settings"
     ])
     with mobile:
-        st.subheader('Mobile')
+        st.info("👋 Mobile version under construction! Check out the desktop page!")
     with desktop:
         if st.session_state.program_builder_desktop_screen == 'dimensions_form':
             init_desktop_dimensions_form_state()
@@ -29,6 +29,6 @@ def render_program_builder_tabs():
             init_desktop_progressions_state()
             render_desktop_progressions()
     with settings:
-        st.subheader('Settings')
+        st.info("👋 Let me know what kind of functionality you'd like to see! Day x Week versus Week x Day layout? Saved progressons for quicker building?")
 
 
